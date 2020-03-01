@@ -10,7 +10,8 @@ import os
 def task2():
     url = 'http://www.jenyay.net/uploads/Student/Modelling/task_02.txt'
     task = rqst.get(url)
-    z = re.search(r'4\W.+', task.text)
+    z = re.search(r'^4\W.+', task.text, flags=re.M)
+    print(z)
     z1 = (z.group().split(';'))
     D = float(z1[0].split('=')[1])
     fmin = float(z1[1].split('=')[1])
@@ -36,18 +37,18 @@ def task2():
         a = []
         sigmaN = []
         n = 0
-        while n < 50:
+        while n < 70:
             h.append(
                 sp.spherical_jn(n,k * r) + 1j * sp.spherical_yn(n, k * r))
             a.append(sp.spherical_jn(n, k * r) / h[n])
             n += 1
         n = 1
-        while n < 50:
+        while n < 70:
             b.append((k * r * sp.spherical_jn(n - 1, k * r) - n * \
                      sp.spherical_jn(n, k * r)) / (k * r * h[n - 1] - n * h[n]))
             n += 1
         n = 1
-        while n < 50:
+        while n < 70:
             sigmaN.append(((-1)**n) * (n + 1 / 2) * (b[n] - a[n]))
             n += 1
         sigma = (lamda**2 / np.pi) * (abs(np.sum(sigmaN)))**2
