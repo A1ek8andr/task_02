@@ -11,7 +11,7 @@ def task2():
     os.mkdir('results')
     url = 'http://www.jenyay.net/uploads/Student/Modelling/task_02.txt'
     task = rqst.get(url)
-    z = re.search(r'^4\W.+', task.text, flags=re.M)
+    z = re.search(r'^4\..+', task.text, flags=re.M)
     z1 = (z.group().split(';'))
     D = float(z1[0].split('=')[1])
     fmin = float(z1[1].split('=')[1])
@@ -58,10 +58,9 @@ def task2():
     plt.grid()
     plt.ylabel('ЭПР')
     plt.xlabel('длина волны')
-    plt.show()
     plt.savefig('graph.png')
-
-
+    plt.show()
+    
 if os.path.exists('results'):
     os.remove('results/task_02_4O-506C_Podberezniy_4.txt')
     os.rmdir("results")
